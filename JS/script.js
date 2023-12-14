@@ -31,7 +31,7 @@ function crearTabla() {
     tabla.setAttribute("id", "tablaEpica");
 
     // Encabezados de la tabla
-    let encabezados = ["Nombre", "Apellido", "Edad", "Grupo", "Grupo Etario"];
+    let encabezados = ["Nombre", "Apellido", "Edad", "Grupo", "Grupo Etario", "Editar", "Eliminar"];
     let encabezadosCabecera = document.createElement("tr");
 
     encabezados.forEach((encabezado) => {
@@ -95,8 +95,64 @@ function agregarFila(tabla) {
     grupoEtarioCell.textContent = grupoEtario;
     fila.appendChild(grupoEtarioCell);
 
+    // Crear celdas para los botones de Editar y Eliminar
+    let editarCell = document.createElement("td");
+    let eliminarCell = document.createElement("td");
+
+    // Botón Editar
+    let editarBtn = document.createElement("button");
+    editarBtn.textContent = "Editar";
+    editarBtn.addEventListener("click", function () {
+        name.value = nameCell.textContent;
+        lastname.value = lastnameCell.textContent;
+        age.value = ageCell.textContent;
+        grupo.value = grupoCell.textContent;
+    });
+    editarCell.appendChild(editarBtn);
+
+    // Botón Eliminar
+    let eliminarBtn = document.createElement("button");
+    eliminarBtn.textContent = "Eliminar";
+    eliminarBtn.addEventListener("click", function () {
+        tabla.removeChild(fila);
+    });
+    eliminarCell.appendChild(eliminarBtn);
+
+    fila.appendChild(editarCell);
+    fila.appendChild(eliminarCell);
+
     tabla.appendChild(fila);
 }
 
 // Evento click del botón
 btnGuardar.addEventListener("click", crearTabla);
+
+let cambiarColorBtn = document.getElementById("btnCambiarColor");
+
+cambiarColorBtn.addEventListener("click", function () {
+    let filas = document.querySelectorAll("#tablaEpica tr");
+
+    filas.forEach((fila, index) => {
+        if (index === 0) return;
+        let grupoCell = fila.getElementsByTagName("td")[3];
+        let grupoValor = grupoCell.textContent.toLowerCase().trim();
+
+        switch (grupoValor) {
+            case "jobs":
+                fila.style.backgroundColor = "lightgreen";
+                break;
+            case "tesla":
+                fila.style.backgroundColor = "lightblue";
+                break;
+            case "lovelace":
+                fila.style.backgroundColor = "lightcoral";
+                break;
+            case "ritche":
+                fila.style.backgroundColor = "crimson";
+                break;
+            default:
+                fila.style.backgroundColor = "white";
+                break;
+        };
+    });
+});
