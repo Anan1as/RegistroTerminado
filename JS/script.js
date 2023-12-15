@@ -45,6 +45,11 @@ function crearTabla() {
     agregarFila(tabla);
 
     document.body.appendChild(tabla);
+
+    name.value = '';
+    lastname.value = '';
+    age.value = '';
+    grupo.value = '';
 }
 
 // Función para agregar fila a la tabla
@@ -107,6 +112,8 @@ function agregarFila(tabla) {
         lastname.value = lastnameCell.textContent;
         age.value = ageCell.textContent;
         grupo.value = grupoCell.textContent;
+
+        tabla.removeChild(fila);
     });
     editarCell.appendChild(editarBtn);
 
@@ -122,6 +129,11 @@ function agregarFila(tabla) {
     fila.appendChild(eliminarCell);
 
     tabla.appendChild(fila);
+
+    name.value = '';
+    lastname.value = '';
+    age.value = '';
+    grupo.value = '';
 }
 
 // Evento click del botón
